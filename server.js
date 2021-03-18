@@ -23,15 +23,15 @@ app.post("/api/notes", (req,res) => {
     let newNote = req.body
     newNote.id = req.body.title
     notes.push(newNote)
-    console.table(notes)
+    // console.table(notes)
     res.json(newNote)
 });
 
-// need GET api route
+// need GET api route, save button
 app.get("/api/notes", (req,res) =>  res.json(notes));
 
 
-
+//delete not working
 app.delete(`/api/notes/:id`, (req,res) => {
     const deleteId = req.params.id
     for (let i = 0; i < notes.length; i++) {
@@ -41,6 +41,7 @@ app.delete(`/api/notes/:id`, (req,res) => {
         
     }
 });
+
 
 
 //GET *
