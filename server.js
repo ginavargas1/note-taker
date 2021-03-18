@@ -23,23 +23,30 @@ app.post("/api/notes", (req,res) => {
     let newNote = req.body
     newNote.id = req.body.title
     notes.push(newNote)
+    fs.writeFile('db/db.json', JSON.stringify(notes), err => {
+        res.json(newNote)
+    })
     // console.table(notes)
-    res.json(newNote)
+    
 });
 
 // need GET api route, save button
 app.get("/api/notes", (req,res) =>  res.json(notes));
 
 
-//delete not working
+//delete working
 app.delete(`/api/notes/:id`, (req,res) => {
     const deleteId = req.params.id
     for (let i = 0; i < notes.length; i++) {
         if (notes[i].id == deleteId) {
-            notes[i] = ""
+            notes.splice(i, 1)
         }
-        
     }
+
+    fs.writeFile('db/db.json', JSON.stringify(notes), err => {
+        res.json(true)
+    })
+
 });
 
 
